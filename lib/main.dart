@@ -24,7 +24,7 @@ main() async {
       var ds = e.split(' ');
       var mp = ds.length == 3 ? ds[2] : '';
       var disk = Disk(ds[0], ds[1], mp);
-      print(disk);
+      print(disk.toString());
       // ds.forEach((e2) {
       //   print('part: $e2');
       // });
@@ -37,4 +37,9 @@ class Disk {
   final String fstype;
   final String mountpoint;
   Disk(this.uuid, this.fstype, this.mountpoint);
+
+  @override
+  String toString() {
+    return 'uuid : $uuid fstype : $fstype mountpoint : $mountpoint';
+  }
 }
