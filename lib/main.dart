@@ -19,7 +19,11 @@ main() async {
     s = s.replaceAll(RegExp(' +'), ' ');
     var lines = LineSplitter().convert(s);
     lines.removeWhere((e) => e.contains('UUID'));
-    lines.removeWhere((element) => !element.contains(RegExp(r'\s')));
+    lines.removeWhere((element) =>
+        (!element.contains(RegExp(r'\s')) || (element.length == 0)));
+    // lines.forEach((element) {
+    //   print(element);
+    // });
     lines.forEach((e) {
       //print('line: $e');
       // e.trim();
