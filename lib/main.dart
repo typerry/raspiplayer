@@ -19,8 +19,13 @@ main() async {
     s = s.replaceAll(RegExp(' +'), ' ');
     var lines = LineSplitter().convert(s);
     lines.removeWhere((e) => e.contains('UUID'));
+    lines.removeWhere((element) => !element.contains(RegExp('\\s')));
     lines.forEach((e) {
       //print('line: $e');
+      // e.trim();
+      // if (e == '') {
+      //   return;
+      // }
       var ds = e.split(' ');
       var mp = ds.length == 3 ? ds[2] : '';
       var disk = Disk(ds[0], ds[1], mp);
