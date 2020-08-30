@@ -22,7 +22,8 @@ main() async {
     lines.forEach((e) {
       //print('line: $e');
       var ds = e.split(' ');
-      var disk = Disk(ds[0], ds[1], ds[2]);
+      var mp = ds.length == 3 ? ds[2] : '';
+      var disk = Disk(ds[0], ds[1], mp);
       print(disk);
       // ds.forEach((e2) {
       //   print('part: $e2');
