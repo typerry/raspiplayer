@@ -19,13 +19,8 @@ main() async {
     s = s.replaceAll(RegExp(' +'), ' ');
     var lines = LineSplitter().convert(s);
     lines.removeWhere((e) => e.contains('UUID'));
-    // lines.removeWhere((element) =>
-    //     (!element.contains(RegExp(r'\s')) || (element.length == 0)));
-    // lines.forEach((element) {
-    //   print(element);
-    // });
+
     lines.forEach((e) {
-      print('line: $e eol');
       e = e.trim();
       if (e == '') {
         return;
@@ -34,9 +29,6 @@ main() async {
       var mp = ds.length == 3 ? ds[2] : '';
       var disk = Disk(ds[0], ds[1], mp);
       print(disk.toString());
-      // ds.forEach((e2) {
-      //   print('part: $e2');
-      // });
     });
   });
 }
