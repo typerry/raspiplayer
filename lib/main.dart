@@ -15,13 +15,16 @@ main() async {
   Process.run('lsblk', ['-o', 'UUID,FSTYPE,MOUNTPOINT'])
       .then((ProcessResult results) {
     String s = results.stdout as String;
+    print(s);
     s = s.replaceAll(RegExp(' +'), ' ');
     var lines = LineSplitter().convert(s);
     lines.removeWhere((e) => e.contains('UUID'));
     lines.forEach((e) {
       print('line: $e');
       var ds = s.split(' ');
-      ds.forEach(print);
+      ds.forEach((e) {
+        print('part: $e');
+      });
     });
   });
 }
