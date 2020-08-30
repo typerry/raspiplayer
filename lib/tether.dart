@@ -1,42 +1,44 @@
 import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
 
 class Tether {
-  Tether._create(RawDatagramSocket socket, InternetAddress address,
-      void Function() callback) {
-    var connections = List<InternetAddress>();
+  Tether._create(RawDatagramSocket socket, void Function() callback) {
+    var connections = List<int>();
 
-    _listen(socket, (InternetAddress message) {
-      if (!connections.contains(message)) {
-        connections.add(message);
+    _listen(socket, (int id) {
+      if (!connections.contains(id)) {
+        connections.add(id);
         callback();
       }
     });
 
-    _send(socket, address);
+    var id = Uint8List(4)..buffer.asInt32List()[0] = Random().nextInt(1 << 32);
+
+    _send(socket, id);
   }
 
   /// Public factory
   static Future<Tether> create(void Function() callback) async {
     return Future<Tether>(() async {
-      var dd = await NetworkInterface.list();
       var socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, 6790);
       socket.broadcastEnabled = true;
-      return Tether._create(socket, dd[0].addresses[0], callback);
+      return Tether._create(socket, callback);
     });
   }
 
-  _send(RawDatagramSocket socket, InternetAddress address) async {
+  _send(RawDatagramSocket socket, Uint8List id) async {
     while (true) {
-      socket.send(address.rawAddress, InternetAddress('255.255.255.255'), 6790);
+      socket.send(id, InternetAddress('255.255.255.255'), 6790);
       await Future.delayed(const Duration(milliseconds: 16));
     }
   }
 
-  _listen(RawDatagramSocket socket,
-      void Function(InternetAddress message) callback) async {
+  _listen(RawDatagramSocket socket, void Function(int id) callback) async {
     while (true) {
       var r = await _recv(socket);
-      callback(InternetAddress.fromRawAddress(r.data));
+      var id = r.data.buffer.asInt32List()[0];
+      callback(id);
     }
   }
 
