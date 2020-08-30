@@ -10,9 +10,9 @@ main() async {
     print('resetting video! : $count');
   });
 
-  //lsblk -o NAME,FSTYPE,MOUNTPOINT
+  //lsblk -o UUID,FSTYPE,MOUNTPOINT
   //Process.run('ls', ['-l']).then((ProcessResult results) {
-  Process.run('lsblk', ['-o', 'NAME,FSTYPE,MOUNTPOINT'])
+  Process.run('lsblk', ['-o', 'UUID,FSTYPE,MOUNTPOINT'])
       .then((ProcessResult results) {
     String s = results.stdout as String;
     s = s.replaceAll(RegExp(' +'), ' ');
