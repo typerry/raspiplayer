@@ -26,8 +26,8 @@ main() async {
     // });
     lines.forEach((e) {
       print('line: $e eol');
-      //e = e.trim();
-      if (!e.contains(RegExp(r'\s'))) {
+      e = e.trim();
+      if (e == '') {
         return;
       }
       var ds = e.split(' ');
