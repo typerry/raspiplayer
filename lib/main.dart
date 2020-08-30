@@ -20,11 +20,20 @@ main() async {
     var lines = LineSplitter().convert(s);
     lines.removeWhere((e) => e.contains('UUID'));
     lines.forEach((e) {
-      print('line: $e');
+      //print('line: $e');
       var ds = e.split(' ');
-      ds.forEach((e2) {
-        print('part: $e2');
-      });
+      var disk = Disk(ds[0], ds[1], ds[2]);
+      print(disk);
+      // ds.forEach((e2) {
+      //   print('part: $e2');
+      // });
     });
   });
+}
+
+class Disk {
+  final String uuid;
+  final String fstype;
+  final String mountpoint;
+  Disk(this.uuid, this.fstype, this.mountpoint);
 }
