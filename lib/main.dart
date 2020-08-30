@@ -21,9 +21,9 @@ main() async {
     lines.removeWhere((e) => e.contains('UUID'));
     lines.forEach((e) {
       print('line: $e');
-      var ds = s.split(' ');
-      ds.forEach((e) {
-        print('part: $e');
+      var ds = e.split(' ');
+      ds.forEach((e2) {
+        print('part: $e2');
       });
     });
   });
