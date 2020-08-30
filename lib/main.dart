@@ -25,7 +25,7 @@ main() async {
     //   print(element);
     // });
     lines.forEach((e) {
-      //print('line: $e');
+      print('line: $e eol');
       e.trim();
       if (e == '') {
         return;
