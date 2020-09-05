@@ -13,7 +13,7 @@ class Disk {
   }
 }
 
-void getDisks() async {
+Future<List<Disk>> getDisks() async {
   List<Disk> disks = new List<Disk>();
 
   //lsblk -o UUID,FSTYPE,MOUNTPOINT
@@ -38,8 +38,5 @@ void getDisks() async {
     disks.add(disk);
   });
 
-  disks.forEach((element) {
-    print(element);
-  });
-  //return new Future(() => disks);
+  return new Future(() => disks);
 }
