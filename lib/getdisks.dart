@@ -14,7 +14,7 @@ class Disk {
 }
 
 void getDisks() async {
-  List<Disk> disks;
+  List<Disk> disks = new List<Disk>();
 
   //lsblk -o UUID,FSTYPE,MOUNTPOINT
   //Process.run('ls', ['-l']).then((ProcessResult results) {
