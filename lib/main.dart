@@ -7,12 +7,15 @@ main() async {
   disks.forEach((element) => print(element));
   var unmountedDisks = disks.where((e) {
     return !e.isMounted();
-  });
-  print('unmounted...');
-  unmountedDisks.forEach((element) => print(element));
+  }).toList();
+  //mount usb
+  if (unmountedDisks.length < 1) {
+    return;
+  }
+  var mountedDisk = unmountedDisks[0].mount('/mnt/usb');
 
-  //TODO: mount usb, find video
-
+  var disk2 = await getDisks();
+  disk2.forEach((element) => print(element));
   //Handle tether to other raspberry pis
   int count = 0;
   var t = await Tether.create(() {
