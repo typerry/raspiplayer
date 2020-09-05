@@ -11,6 +11,19 @@ class Disk {
   String toString() {
     return 'uuid : $uuid fstype : $fstype mountpoint : $mountpoint';
   }
+
+  bool isMounted() {
+    return mountpoint != '';
+  }
+
+  Future<int> mount(String path) async {
+    if (!isMounted()) {
+      ProcessResult results =
+          await Process.run('mount', ['--uuid', uuid, path]);
+      return Future<int>(() => results.exitCode);
+    }
+    return Future<int>(() => 1);
+  }
 }
 
 Future<List<Disk>> getDisks() async {
