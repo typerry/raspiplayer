@@ -5,23 +5,13 @@ main() async {
   //setup usb disks
   var disks = await getDisks();
   disks.forEach((element) => print(element));
-  Disk mountedDisk =
-      disks.firstWhere((element) => element.mountpoint == '/mnt/usb');
+
+  Disk mountedDisk = disks.firstWhere(
+      (element) => element.mountpoint == '/mnt/usb',
+      orElse: () => null);
 
   if (mountedDisk == null) {
-    var unmountedDisks = disks.where((e) {
-      return !e.isMounted();
-    }).toList();
-    //mount usb
-    if (unmountedDisks.length < 1) {
-      return;
-    }
-    await unmountedDisks[0].mount('/mnt/usb');
-
-    var disks2 = await getDisks();
-    disks2.forEach((element) => print(element));
-    mountedDisk =
-        disks2.firstWhere((element) => element.mountpoint == '/mnt/usb');
+    mountedDisk = await getUsb(disks);
   }
 
   if (mountedDisk == null) {

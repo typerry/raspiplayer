@@ -53,3 +53,21 @@ Future<List<Disk>> getDisks() async {
 
   return new Future(() => disks);
 }
+
+Future<Disk> getUsb(List<Disk> disks) async {
+  var unmountedDisks = disks.where((e) {
+    return !e.isMounted();
+  }).toList();
+  //mount usb
+  if (unmountedDisks.length < 1) {
+    return null;
+  }
+  await unmountedDisks[0].mount('/mnt/usb');
+
+  var disks2 = await getDisks();
+  disks2.forEach((element) => print(element));
+  return Future<Disk>(() => disks2.firstWhere(
+        (element) => element.mountpoint == '/mnt/usb',
+        orElse: () => null,
+      ));
+}
