@@ -13,7 +13,7 @@ class Disk {
   }
 }
 
-Future<List<Disk>> getDisks() async {
+void getDisks() async {
   List<Disk> disks;
 
   //lsblk -o UUID,FSTYPE,MOUNTPOINT
@@ -22,7 +22,7 @@ Future<List<Disk>> getDisks() async {
       await Process.run('lsblk', ['-o', 'UUID,FSTYPE,MOUNTPOINT']);
 
   String s = results.stdout as String;
-  print(s);
+  //print(s);
   s = s.replaceAll(RegExp(' +'), ' ');
   var lines = LineSplitter().convert(s);
   lines.removeWhere((e) => e.contains('UUID'));
@@ -38,5 +38,8 @@ Future<List<Disk>> getDisks() async {
     disks.add(disk);
   });
 
-  return new Future(() => disks);
+  disks.forEach((element) {
+    print(element);
+  });
+  //return new Future(() => disks);
 }

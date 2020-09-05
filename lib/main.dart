@@ -8,5 +8,5 @@ main() async {
     print('resetting video! : $count');
   });
 
-  getDisks().then((value) => {value.forEach((element) => print(element))});
+  getDisks(); //.then((value) => {value.forEach((element) => print(element))});
 }
