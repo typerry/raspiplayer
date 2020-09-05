@@ -13,7 +13,7 @@ main() async {
     return;
   }
   var mountedDisk = await unmountedDisks[0].mount('/mnt/usb');
-
+  print('disk : $mountedDisk');
   var disk2 = await getDisks();
   disk2.forEach((element) => print(element));
   //Handle tether to other raspberry pis
