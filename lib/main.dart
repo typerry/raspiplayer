@@ -12,7 +12,7 @@ main() async {
   if (unmountedDisks.length < 1) {
     return;
   }
-  var mountedDisk = unmountedDisks[0].mount('/mnt/usb');
+  var mountedDisk = await unmountedDisks[0].mount('/mnt/usb');
 
   var disk2 = await getDisks();
   disk2.forEach((element) => print(element));
