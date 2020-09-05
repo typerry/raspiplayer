@@ -1,5 +1,4 @@
-import 'package:raspiplayer/getdisks.dart';
-
+import 'getdisks.dart';
 import 'tether.dart';
 
 main() async {
