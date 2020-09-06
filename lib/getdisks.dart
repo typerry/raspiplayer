@@ -65,7 +65,6 @@ Future<Disk> getUsb(List<Disk> disks) async {
   await unmountedDisks[0].mount('/mnt/usb');
 
   var disks2 = await getDisks();
-  disks2.forEach((element) => print(element));
   return Future<Disk>(() => disks2.firstWhere(
         (element) => element.mountpoint == '/mnt/usb',
         orElse: () => null,
