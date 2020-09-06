@@ -4,16 +4,19 @@ import 'dart:convert';
 class Disk {
   final String uuid;
   final String fstype;
-  final String mountpoint;
-  Disk(this.uuid, this.fstype, this.mountpoint);
+  //final String mountpointUri;
+  final Directory mountpoint;
+
+  Disk(this.uuid, this.fstype, String mountpointUri)
+      : this.mountpoint = new Directory(mountpointUri);
 
   @override
   String toString() {
-    return 'uuid : $uuid fstype : $fstype mountpoint : $mountpoint';
+    return 'uuid : $uuid fstype : $fstype mountpoint : ${mountpoint.path}';
   }
 
   bool isMounted() {
-    return mountpoint != '';
+    return mountpoint.path != '';
   }
 
   Future<int> mount(String path) async {
@@ -66,7 +69,7 @@ Future<Disk> getUsb(List<Disk> disks) async {
 
   var disks2 = await getDisks();
   return Future<Disk>(() => disks2.firstWhere(
-        (element) => element.mountpoint == '/mnt/usb',
+        (element) => element.mountpoint.path == '/mnt/usb',
         orElse: () => null,
       ));
 }

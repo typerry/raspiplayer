@@ -7,7 +7,7 @@ main() async {
   while (mountedDisk == null) {
     var disks = await getDisks();
     mountedDisk = disks.firstWhere(
-        (element) => element.mountpoint == '/mnt/usb',
+        (element) => element.mountpoint.path == '/mnt/usb',
         orElse: () => null);
 
     if (mountedDisk == null) {
