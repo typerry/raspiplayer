@@ -3,10 +3,10 @@ import 'tether.dart';
 
 main() async {
   //setup usb disks
-  var disks = await getDisks();
-  disks.forEach((element) => print(element));
   Disk mountedDisk = null;
   while (mountedDisk == null) {
+    var disks = await getDisks();
+    disks.forEach((element) => print(element));
     mountedDisk = disks.firstWhere(
         (element) => element.mountpoint == '/mnt/usb',
         orElse: () => null);
