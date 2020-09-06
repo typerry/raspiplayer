@@ -17,6 +17,9 @@ main() async {
 
   print('------');
   print(mountedDisk.toString());
+  print('------');
+
+  mountedDisk.mountpoint.list().forEach((element) => print(element.path));
 
   //Handle tether to other raspberry pis
   int count = 0;
