@@ -41,6 +41,7 @@ main() async {
   Process omx = null;
   var t = await Tether.create(() async {
     if (omx != null) {
+      print('killing... ${omx.pid}');
       omx.kill();
     }
     count++;
