@@ -22,9 +22,7 @@ main() async {
   print('------');
 
   List<File> files = List<File>();
-  mountedDisk.mountpoint
-      .listSync(recursive: true, followLinks: true)
-      .forEach((element) {
+  mountedDisk.mountpoint.listSync().forEach((element) {
     print(element.path);
     if (element is File) {
       if (checkExtension(element)) {

@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 playFile(File file) async {
   var exists = await file.exists();
   if (exists) {
-    await Process.run('omx', [file.path]);
+    await Process.run('omxplayer', ['-p', '-o', 'hdmi', file.path]);
   }
 }
 
