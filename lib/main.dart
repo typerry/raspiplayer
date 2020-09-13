@@ -47,5 +47,6 @@ main() async {
     print('resetting video! : $count');
     //TODO: start video
     omx = await playFile(files[0]);
+    print(omx.pid);
   });
 }
