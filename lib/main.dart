@@ -42,7 +42,7 @@ main() async {
   var t = await Tether.create(() async {
     if (omx != null) {
       print('killing... ${omx.pid}');
-      omx.kill();
+      print(omx.kill(ProcessSignal.sigterm));
     }
     count++;
     print('resetting video! : $count');
