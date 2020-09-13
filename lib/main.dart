@@ -1,5 +1,7 @@
 import 'getdisks.dart';
 import 'tether.dart';
+import 'dart:io';
+import 'omxcontroller.dart';
 
 main() async {
   //setup usb disks
@@ -19,7 +21,19 @@ main() async {
   print(mountedDisk.toString());
   print('------');
 
-  mountedDisk.mountpoint.list().forEach((element) => print(element.path));
+  List<File> files = List<File>();
+  mountedDisk.mountpoint.list().forEach((element) {
+    if (element is File) {
+      if (checkExtension(element)) {
+        files.add(element);
+        print(element.path);
+      }
+    }
+  });
+  if (files.length == 0) {
+    print('no files found!');
+  }
+  print('------');
 
   //Handle tether to other raspberry pis
   int count = 0;
@@ -27,5 +41,6 @@ main() async {
     count++;
     print('resetting video! : $count');
     //TODO: start video
+    playFile(files[0]);
   });
 }
