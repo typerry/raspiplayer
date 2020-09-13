@@ -23,7 +23,7 @@ main() async {
 
   List<File> files = List<File>();
   mountedDisk.mountpoint
-      .list(recursive: true, followLinks: true)
+      .listSync(recursive: true, followLinks: true)
       .forEach((element) {
     print(element.path);
     if (element is File) {
