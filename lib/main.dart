@@ -38,16 +38,17 @@ main() async {
 
   //Handle tether to other raspberry pis
   int count = 0;
-  Process omx = null;
-  var t = await Tether.create(() async {
-    if (omx != null) {
-      print('killing... ${omx.pid}');
-      print(omx.kill(ProcessSignal.sigterm));
-    }
+  List<Process> omx = List<Process>();
+  var t = await Tether.create(() {
     count++;
     print('resetting video! : $count');
     //TODO: start video
-    omx = await playFile(files[0]);
-    print(omx.pid);
+    playFile(files[0]).then((value) {
+      omx.forEach((element) {
+        element.kill(ProcessSignal.sigterm);
+      });
+
+      omx.add(value);
+    });
   });
 }
