@@ -23,6 +23,7 @@ main() async {
 
   List<File> files = List<File>();
   mountedDisk.mountpoint.list().forEach((element) {
+    print(element.path);
     if (element is File) {
       if (checkExtension(element)) {
         files.add(element);
