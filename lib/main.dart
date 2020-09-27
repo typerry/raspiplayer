@@ -46,7 +46,7 @@ main() async {
 
     if (omx != null) {
       //omx.stdin.writeln('q');\
-      omx.kill(ProcessSignal.sigterm);
+      print(omx.kill(ProcessSignal.sigterm));
     }
     //TODO: start video
     playFile(files[0]).then((value) {
