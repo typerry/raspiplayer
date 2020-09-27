@@ -40,6 +40,19 @@ main() async {
   int count = 0;
   //List<Process> omx = List<Process>();
   Process omx = null;
+
+  //TODO: start video
+  Future<Null> Function() pf;
+  pf = () => playFile(files[0]).then((value) {
+        print('playing video!');
+        omx = value;
+        omx.exitCode.then((value) {
+          print(value);
+          pf();
+        });
+      });
+  pf();
+
   var t = await Tether.create(() {
     count++;
     print('resetting video! : $count');
@@ -48,10 +61,5 @@ main() async {
       //omx.stdin.writeln('q');\
       print(omx.kill(ProcessSignal.sigterm));
     }
-    //TODO: start video
-    playFile(files[0]).then((value) {
-      print('playing video!');
-      omx = value;
-    });
   });
 }
