@@ -46,7 +46,7 @@ main() async {
   pf = () => playFile(files[0]).then((value) {
         print('playing video!');
         omx = value;
-        omx.exitCode.then((value) {
+        omx.stdout.listen((event) {
           print(value);
           pf();
         });
@@ -58,8 +58,8 @@ main() async {
     print('resetting video! : $count');
 
     if (omx != null) {
-      //omx.stdin.writeln('q');\
-      print(omx.kill(ProcessSignal.sigterm));
+      omx.stdin.writeln('q');
+      //print(omx.kill(ProcessSignal.sigterm));
     }
   });
 }
