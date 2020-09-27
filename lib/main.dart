@@ -45,10 +45,12 @@ main() async {
     print('resetting video! : $count');
 
     if (omx != null) {
-      omx.stdin.writeln('q');
+      //omx.stdin.writeln('q');\
+      omx.kill(ProcessSignal.sigterm);
     }
     //TODO: start video
     playFile(files[0]).then((value) {
+      print('playing video!');
       omx = value;
     });
   });
