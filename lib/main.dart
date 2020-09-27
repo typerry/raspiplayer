@@ -43,12 +43,12 @@ main() async {
   var t = await Tether.create(() {
     count++;
     print('resetting video! : $count');
+
+    if (omx != null) {
+      omx.stdin.writeln('q');
+    }
     //TODO: start video
     playFile(files[0]).then((value) {
-      if (omx != null) {
-        omx.stdin.writeln('q');
-      }
-
       omx = value;
     });
   });
